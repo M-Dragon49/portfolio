@@ -72,9 +72,7 @@
   }
 
   .sponsor-logos {
-    background: white;
-    padding: 6px 12px;
-    border-radius: 6px;
+    background: transparent; /* Chuyển thành không nền */
     display: flex;
     align-items: center;
     gap: 12px;
@@ -90,7 +88,7 @@
   .logo-divider {
     width: 1px;
     height: 16px;
-    background: #ddd;
+    background: rgba(255,255,255,0.2); /* Chuyển màu vạch kẻ cho hợp với nền tối */
   }
 
   .nav-links {
@@ -798,25 +796,30 @@
         </div>
         <div class="project-body">
           <h3 class="project-name">Tromsmart T8 - Khi Tĩnh Lặng Cất Tiếng</h3>
-          <div class="project-desc">TVC quảng bá dòng loa di động Tromsmart T8. Khai thác concept "Khi tĩnh lặng cất tiếng", video sử dụng thủ pháp đối lập giữa không gian yên bình và sự bùng nổ của chất âm vòm 360° (công suất 40W). Các góc máy đặc tả khéo léo tôn lên dải đèn LED RGB và chuẩn chống nước IPX7.</div>
+          <div class="project-desc">TVC 40 giây kể câu chuyện khi âm nhạc là "công tắc" tắt đi mệt mỏi, bật lên cảm hứng. Đạt hơn 100.000+ lượt xem trên TikTok.</div>
           <div class="project-meta">
             <span class="project-year">2026 · Học kỳ II</span>
-            <span class="project-award">🏆 Dự án xuất sắc</span>
+            <span class="project-award">🏆 Dự án tiêu biểu</span>
           </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-thumb p2">
-          <div class="project-type">Brand Film · Cafe</div>
-          <div class="play-icon">▶</div>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
+          <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                  src="https://www.youtube.com/embed/51uUjP160Zc?rel=0" 
+                  title="YouTube video player" frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Brand Film · Cafe</div>
         </div>
         <div class="project-body">
-          <h3 class="project-name">Góc Nhỏ – Nơi Bắt Đầu</h3>
-          <div class="project-desc">Mini documentary về quán cà phê sinh viên, tập trung vào insight "nạp năng lượng trước giờ học". Viral trong cộng đồng HUTECH.</div>
+          <h3 class="project-name">Nước Mắm Nam Ngư - Nghi Thức Vị Giác</h3>
+          <div class="project-desc">TVC “NGHI THỨC VỊ GIÁC” nơi một bữa ăn quen thuộc bỗng trở thành một “nghi lễ” kỳ lạ. Đạt hơn 28.000+ lượt xem trên Facebook.</div>
           <div class="project-meta">
-            <span class="project-year">2024 · Học kỳ I</span>
-            <span class="project-award">Viral nội bộ</span>
+            <span class="project-year">2026 · Học kỳ II</span>
+            <span class="project-award">🏆 Dự án tiêu biểu</span>
           </div>
         </div>
       </div>
@@ -969,7 +972,7 @@
   <div class="footer-logo-area">
     <span class="footer-logo">Creative Crew.</span>
     <span style="color: rgba(255,255,255,0.2);">|</span>
-    <div class="sponsor-logos" style="padding: 4px 10px;">
+    <div class="sponsor-logos">
       <img src="Logo HUTECH - RGB.png" alt="HUTECH Logo" style="height: 18px;">
       <div class="logo-divider" style="height: 12px;"></div>
       <img src="TTTK-logo VN color.png" alt="TTTK Logo" style="height: 18px;">
