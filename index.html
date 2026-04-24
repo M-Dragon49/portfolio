@@ -344,7 +344,7 @@
     line-height: 1.6;
   }
 
-  /* ── PROJECTS (LƯỚI 2 CỘT CÂN ĐỐI) ── */
+  /* ── PROJECTS ── */
   .projects { background: #08080A; }
 
   .projects-header {
@@ -356,9 +356,10 @@
     gap: 24px;
   }
 
+  /* ĐỔI LẠI THÀNH LƯỚI 3 CỘT CHO 3 DỰ ÁN */
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
   }
 
@@ -608,7 +609,7 @@
   /* ── RESPONSIVE TWEAKS ── */
   @media (max-width: 1024px) {
     .members-grid { grid-template-columns: repeat(2, 1fr); }
-    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); } /* Chuyển thành 2 cột trên Tablet */
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-title { font-size: 60px; }
   }
@@ -620,7 +621,7 @@
     .hero-left { padding: 60px 24px; }
     .hero-right { display: none; } 
     .hero-title { font-size: 48px; }
-    .projects-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; } /* Chuyển thành 1 cột trên Mobile */
     .skills-grid { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
     .container { padding: 0 24px; }
@@ -698,7 +699,7 @@
         <div class="member-skill">Phân tích insight · Chiến lược đăng tải</div>
       </div>
       <div class="member-card">
-        <div class="member-role">Quay phim · Color Grading</div>
+        <div class="member-role">Camera Operator · Color Grading</div>
         <div class="member-name">Quốc Khánh</div>
         <div class="member-skill">Camera · Xử lý màu sắc hậu kỳ</div>
       </div>
@@ -766,7 +767,7 @@
           <h3 class="project-name">Nước Mắm Nam Ngư – Nghi Thức Vị Giác</h3>
           <div class="project-desc">TVC “NGHI THỨC VỊ GIÁC” nơi một bữa ăn quen thuộc bỗng trở thành một “nghi lễ” kỳ lạ. Khai thác nhịp điệu nhanh và góc máy ấn tượng. Đạt hơn 28.000+ lượt xem trên Facebook.</div>
           <div class="project-meta">
-            <span class="project-year">2024 · Học kỳ I</span>
+            <span class="project-year">2026 · Học kỳ II</span>
             <span class="project-award">🔥 28.000+ Views</span>
           </div>
         </div>
@@ -775,35 +776,19 @@
       <div class="project-card">
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
           <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                  src="https://tvcdanisa.my.canva.site/proposaldanisa" 
-                  allowfullscreen>
+                  src="https://www.youtube.com/watch?v=SKQRnz-xK8c&t=17s" 
+                  title="YouTube video player" frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
           </iframe>
-          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Pitching Deck</div>
+          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Short Film</div>
         </div>
         <div class="project-body">
-          <h3 class="project-name">Kế Hoạch Truyền Thông - TVC Danisa</h3>
-          <div class="project-desc">Bộ tài liệu thuyết trình (Pitching Deck) chi tiết về chiến lược phân phối nội dung, nghiên cứu khách hàng mục tiêu và định hướng hình ảnh cho nhãn hàng Danisa. Thể hiện tư duy làm việc bài bản trước khi bấm máy.</div>
+          <h3 class="project-name">PYTAGO | Sự Thật | Phim Ngắn</h3>
+          <div class="project-desc">Dự án phim ngắn thể loại tâm lý với kỹ thuật kể chuyện (Storytelling) đậm chất điện ảnh. Tập trung vào việc xây dựng mood & tone qua màu sắc, góc máy đặc tả cảm xúc nhân vật và nhịp dựng phim cuốn hút để truyền tải thông điệp.</div>
           <div class="project-meta">
-            <span class="project-year">2025 · Planning</span>
-            <span class="project-award">Bản đề xuất</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
-          <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                  src="LINK_CANVA_HOSO_CUA_BAN" 
-                  allowfullscreen>
-          </iframe>
-          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Profile · PDF</div>
-        </div>
-        <div class="project-body">
-          <h3 class="project-name">Hồ Sơ Năng Lực (Creative Crew)</h3>
-          <div class="project-desc">Phiên bản slide tương tác của Hồ sơ năng lực. Khách hàng có thể lướt xem trực tiếp trên web để hiểu rõ hơn về thế mạnh, từng thành viên và hệ thống trang thiết bị máy móc mà nhóm đang sở hữu.</div>
-          <div class="project-meta">
-            <span class="project-year">2026 · Company Profile</span>
-            <span class="project-award">Bản cập nhật mới</span>
+            <span class="project-year">2024 · Phim Ngắn</span>
+            <span class="project-award">🎬 Cinematic</span>
           </div>
         </div>
       </div>
