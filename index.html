@@ -22,7 +22,6 @@
   html { scroll-behavior: smooth; }
 
   body {
-    /* Đổi toàn bộ font body sang Be Vietnam Pro */
     font-family: 'Be Vietnam Pro', sans-serif;
     background: var(--bg-main);
     color: var(--text-main);
@@ -59,7 +58,6 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    flex-wrap: wrap;
   }
 
   .logo {
@@ -70,6 +68,7 @@
     text-decoration: none;
     letter-spacing: 1px;
     font-style: italic;
+    line-height: 1;
   }
 
   .sponsor-logos {
@@ -85,6 +84,7 @@
     height: 24px;
     width: auto;
     object-fit: contain;
+    display: block;
   }
 
   .logo-divider {
@@ -95,6 +95,7 @@
 
   .nav-links {
     display: flex;
+    align-items: center;
     gap: 36px;
   }
 
@@ -102,10 +103,11 @@
     text-decoration: none;
     color: var(--text-main);
     font-size: 14px;
-    font-weight: 600; /* Tăng độ đậm lên một chút cho dễ đọc */
+    font-weight: 600; 
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: color 0.2s;
+    line-height: 1;
   }
 
   .nav-links a:hover { color: var(--gold); }
@@ -116,6 +118,9 @@
     padding: 10px 20px;
     border-radius: 4px;
     font-weight: 700 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* ── HERO SECTION ── */
@@ -703,11 +708,11 @@
 
 <section class="hero" id="top">
   <div class="hero-left">
-    <span class="tag">Production House · HUTECH 2025</span>
+    <span class="tag">Production House · HUTECH 2026</span>
     <h1 class="hero-title">Nội dung<br><em>chạm đến</em><br>cảm xúc.</h1>
     <p class="hero-sub">Chúng tôi là đội ngũ sinh viên đam mê sản xuất hình ảnh và video. Biến ý tưởng của thương hiệu thành những thước phim chỉn chu, sẵn sàng để viral.</p>
     <div class="hero-cta">
-      <a href="#projects" class="btn-primary">Xem Portfolio</a>
+      <a href="#projects" class="btn-primary">Xem sản phẩm</a>
       <a href="#contact" class="btn-outline">Trở thành đối tác</a>
     </div>
   </div>
@@ -782,13 +787,18 @@
 
     <div class="projects-grid">
       <div class="project-card">
-        <div class="project-thumb p1">
-          <div class="project-type">TVC · F&B</div>
-          <div class="play-icon">▶</div>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
+          <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                  src="https://www.youtube.com/embed/XpmF3M0KRvc?rel=0" 
+                  title="YouTube video player" frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">TVC · Công Nghệ</div>
         </div>
         <div class="project-body">
-          <h3 class="project-name">Bếp Nhà – Hương Vị Ký Ức</h3>
-          <div class="project-desc">Video 60 giây kể câu chuyện bữa cơm gia đình, quảng bá quán ăn truyền thống địa phương. Đạt 15,000 lượt xem trên Facebook.</div>
+          <h3 class="project-name">Tromsmart T8 - Khi Tĩnh Lặng Cất Tiếng</h3>
+          <div class="project-desc">TVC quảng bá dòng loa di động Tromsmart T8. Khai thác concept "Khi tĩnh lặng cất tiếng", video sử dụng thủ pháp đối lập giữa không gian yên bình và sự bùng nổ của chất âm vòm 360° (công suất 40W). Các góc máy đặc tả khéo léo tôn lên dải đèn LED RGB và chuẩn chống nước IPX7.</div>
           <div class="project-meta">
             <span class="project-year">2024 · Học kỳ I</span>
             <span class="project-award">🏆 Dự án xuất sắc</span>
