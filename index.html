@@ -72,7 +72,7 @@
   }
 
   .sponsor-logos {
-    background: transparent; /* Chuyển thành không nền */
+    background: transparent;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -88,7 +88,7 @@
   .logo-divider {
     width: 1px;
     height: 16px;
-    background: rgba(255,255,255,0.2); /* Chuyển màu vạch kẻ cho hợp với nền tối */
+    background: rgba(255,255,255,0.2);
   }
 
   .nav-links {
@@ -358,7 +358,7 @@
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 32px;
   }
 
@@ -366,7 +366,6 @@
     background: var(--bg-surface);
     border-radius: 12px;
     overflow: hidden;
-    cursor: pointer;
     border: 1px solid var(--border-light);
     transition: all 0.4s ease;
   }
@@ -374,52 +373,6 @@
     transform: translateY(-10px); 
     box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     border-color: var(--gold-dim);
-  }
-
-  .project-thumb {
-    height: 260px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-  }
-
-  .project-thumb::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.8));
-    transition: background 0.4s;
-  }
-
-  .project-card:hover .project-thumb::before { background: rgba(0,0,0,0.4); }
-
-  .play-icon {
-    width: 64px;
-    height: 64px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 20px;
-    position: relative;
-    z-index: 2;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-
-  .project-card:hover .play-icon {
-    transform: scale(1.15);
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--bg-main);
   }
 
   .project-type {
@@ -438,12 +391,6 @@
     z-index: 3;
     border: 1px solid rgba(255,255,255,0.1);
   }
-
-  .p1 { background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=600'); }
-  .p2 { background-image: url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=600'); }
-  .p3 { background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600'); }
-  .p4 { background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=600'); }
-  .p5 { background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=600'); }
 
   .project-body { padding: 28px; }
 
@@ -661,7 +608,6 @@
   /* ── RESPONSIVE TWEAKS ── */
   @media (max-width: 1024px) {
     .members-grid { grid-template-columns: repeat(2, 1fr); }
-    .projects-grid { grid-template-columns: repeat(2, 1fr); }
     .skills-grid { grid-template-columns: repeat(2, 1fr); }
     .hero-title { font-size: 60px; }
   }
@@ -784,9 +730,10 @@
     </div>
 
     <div class="projects-grid">
+      
       <div class="project-card">
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
-          <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+          <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
                   src="https://www.youtube.com/embed/XpmF3M0KRvc?rel=0" 
                   title="YouTube video player" frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -796,17 +743,17 @@
         </div>
         <div class="project-body">
           <h3 class="project-name">Tromsmart T8 - Khi Tĩnh Lặng Cất Tiếng</h3>
-          <div class="project-desc">TVC 40 giây kể câu chuyện khi âm nhạc là "công tắc" tắt đi mệt mỏi, bật lên cảm hứng. Đạt hơn 100.000+ lượt xem trên TikTok.</div>
+          <div class="project-desc">TVC quảng bá Tromsmart T8. Ứng dụng kỹ thuật Visual Contrast (tương phản thị giác) và Low-key lighting để làm nổi bật concept "Khi tĩnh lặng cất tiếng". Khung hình tận dụng các góc máy Macro (đặc tả) kết hợp chuyển động máy mượt mà nhằm đánh bật dải LED RGB và chuẩn chống nước IPX7. Hậu kỳ tập trung vào Sound Design đa lớp cùng nhịp cắt (Pacing) dồn dập, mô phỏng chân thực sự bùng nổ của dải âm vòm 360° 40W.</div>
           <div class="project-meta">
             <span class="project-year">2026 · Học kỳ II</span>
-            <span class="project-award">🏆 Dự án tiêu biểu</span>
+            <span class="project-award">🏆 Dự án xuất sắc</span>
           </div>
         </div>
       </div>
 
       <div class="project-card">
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
-          <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+          <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
                   src="https://www.youtube.com/embed/51uUjP160Zc?rel=0" 
                   title="YouTube video player" frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -815,59 +762,51 @@
           <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">TVC · F&B</div>
         </div>
         <div class="project-body">
-          <h3 class="project-name">Nước Mắm Nam Ngư - Nghi Thức Vị Giác</h3>
+          <h3 class="project-name">Nước Mắm Nam Ngư – Nghi Thức Vị Giác</h3>
           <div class="project-desc">TVC “NGHI THỨC VỊ GIÁC” nơi một bữa ăn quen thuộc bỗng trở thành một “nghi lễ” kỳ lạ. Đạt hơn 28.000+ lượt xem trên Facebook.</div>
           <div class="project-meta">
-            <span class="project-year">2026 · Học kỳ II</span>
-            <span class="project-award">🏆 Dự án tiêu biểu</span>
+            <span class="project-year">2024 · Học kỳ I</span>
+            <span class="project-award">🔥 28.000+ Views</span>
           </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-thumb p3">
-          <div class="project-type">Social Campaign</div>
-          <div class="play-icon">▶</div>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
+          <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                  src="LINK_CANVA_CỦA_BẠN_1" 
+                  allowfullscreen>
+          </iframe>
+          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Pitching Deck</div>
         </div>
         <div class="project-body">
-          <h3 class="project-name">Xanh Từ Bữa Ăn</h3>
-          <div class="project-desc">Campaign truyền thông cho thương hiệu thực phẩm sạch, bao gồm TVC 45 giây + chuỗi nội dung TikTok theo concept xuyên suốt.</div>
+          <h3 class="project-name">Kế Hoạch Truyền Thông Mẫu</h3>
+          <div class="project-desc">Bộ tài liệu thuyết trình (Pitching Deck) chi tiết về chiến lược phân phối nội dung, nghiên cứu khách hàng mục tiêu và định hướng hình ảnh. Thể hiện tư duy làm việc bài bản, chuyên nghiệp của nhóm trước khi bắt đầu bấm máy.</div>
           <div class="project-meta">
-            <span class="project-year">2023 · Cuộc thi</span>
-            <span class="project-award">🥈 Á quân</span>
+            <span class="project-year">2026 · Planning</span>
+            <span class="project-award">Tài liệu tham khảo</span>
           </div>
         </div>
       </div>
 
       <div class="project-card">
-        <div class="project-thumb p4">
-          <div class="project-type">Event Film</div>
-          <div class="play-icon">▶</div>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
+          <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                  src="LINK_CANVA_CỦA_BẠN_2" 
+                  allowfullscreen>
+          </iframe>
+          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Profile · PDF</div>
         </div>
         <div class="project-body">
-          <h3 class="project-name">HUTECH Fest Highlight</h3>
-          <div class="project-desc">Aftermovie chính thức của sự kiện sinh viên quy mô 2,000 người. Quay – dựng – phát hành thần tốc trong 48 giờ.</div>
+          <h3 class="project-name">Hồ Sơ Năng Lực (Creative Crew)</h3>
+          <div class="project-desc">Phiên bản slide tương tác của Hồ sơ năng lực. Khách hàng có thể lướt xem trực tiếp trên web để hiểu rõ hơn về thế mạnh, từng thành viên và hệ thống trang thiết bị máy móc mà nhóm đang sở hữu phục vụ cho việc quay dựng.</div>
           <div class="project-meta">
-            <span class="project-year">2023 · Event</span>
-            <span class="project-award">Chính thức BTC</span>
+            <span class="project-year">2026 · Company Profile</span>
+            <span class="project-award">Cập nhật mới nhất</span>
           </div>
         </div>
       </div>
 
-      <div class="project-card">
-        <div class="project-thumb p5">
-          <div class="project-type">Brand Content</div>
-          <div class="play-icon">▶</div>
-        </div>
-        <div class="project-body">
-          <h3 class="project-name">Lookbook Thời Trang GenZ</h3>
-          <div class="project-desc">Video lookbook kết hợp phỏng vấn, thể hiện phong cách sống của Gen Z. Sản phẩm được thương hiệu sử dụng trên Instagram.</div>
-          <div class="project-meta">
-            <span class="project-year">2023 · Thực hành</span>
-            <span class="project-award">Brand Endorsed</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -972,7 +911,7 @@
   <div class="footer-logo-area">
     <span class="footer-logo">Creative Crew.</span>
     <span style="color: rgba(255,255,255,0.2);">|</span>
-    <div class="sponsor-logos">
+    <div class="sponsor-logos" style="padding: 4px 10px;">
       <img src="Logo HUTECH - RGB.png" alt="HUTECH Logo" style="height: 18px;">
       <div class="logo-divider" style="height: 12px;"></div>
       <img src="TTTK-logo VN color.png" alt="TTTK Logo" style="height: 18px;">
