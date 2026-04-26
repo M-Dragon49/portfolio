@@ -9,14 +9,14 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    /* Theme sáng rực rỡ cho Sun Production */
-    --bg-main: #FDFBF7;        
-    --bg-surface: #FFFFFF;     
-    --primary: #FF9F1C; /* Màu cam mặt trời */       
-    --primary-dim: rgba(255, 159, 28, 0.12);
-    --text-main: #1A1A1A;      
-    --text-muted: #5A5A5A;     
-    --shadow-glass: 0 12px 40px rgba(0, 0, 0, 0.06);
+    /* Theme be/cát ấm (Warm Sand) giúp dịu mắt, bớt chói nhưng vẫn chuẩn vibe "Sun" */
+    --bg-main: #ECE8E1;        
+    --bg-surface: #F5F2EC;     
+    --primary: #F28C00; /* Màu cam mặt trời được làm đậm lại một chút để nổi bật trên nền be */       
+    --primary-dim: rgba(242, 140, 0, 0.12);
+    --text-main: #2C2A28;      
+    --text-muted: #6B6862;     
+    --shadow-glass: 0 12px 40px rgba(0, 0, 0, 0.05);
     --border-light: rgba(0, 0, 0, 0.06);
   }
 
@@ -47,7 +47,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(253, 251, 247, 0.8);
+    background: rgba(236, 232, 225, 0.85); /* Khớp với màu nền dịu */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     z-index: 100;
@@ -84,13 +84,13 @@
     width: auto;
     object-fit: contain;
     display: block;
-    filter: brightness(0.1); /* Chuyển logo sang màu tối để nổi bật trên nền sáng */
+    /* Giữ nguyên màu gốc của logo */
   }
 
   .logo-divider {
     width: 1px;
     height: 16px;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.15);
   }
 
   .nav-links {
@@ -121,7 +121,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(255, 159, 28, 0.3);
+    box-shadow: 0 4px 15px rgba(242, 140, 0, 0.25);
   }
 
   /* ── HERO SECTION ── */
@@ -150,7 +150,7 @@
     text-transform: uppercase;
     color: var(--primary);
     border: 1px solid var(--primary-dim);
-    background: rgba(255, 159, 28, 0.08);
+    background: rgba(242, 140, 0, 0.08);
     padding: 8px 16px;
     border-radius: 30px;
     margin-bottom: 32px;
@@ -199,12 +199,12 @@
     cursor: pointer;
     text-decoration: none;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 159, 28, 0.2);
+    box-shadow: 0 4px 15px rgba(242, 140, 0, 0.2);
   }
   .btn-primary:hover { 
-    background: #FF8F00; 
+    background: #D97D00; 
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 159, 28, 0.3);
+    box-shadow: 0 10px 20px rgba(242, 140, 0, 0.3);
   }
 
   .btn-outline {
@@ -224,7 +224,6 @@
   .btn-outline:hover::after { transform: translateX(6px); }
 
   .hero-right {
-    /* Đổi sang ảnh ánh nắng vàng / camera rất hợp vibe Sun Production */
     background: url('https://images.unsplash.com/photo-1552168324-d612d77725e3?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
     position: relative;
     display: flex;
@@ -236,7 +235,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, var(--bg-main) 0%, rgba(253, 251, 247, 0) 100%);
+    background: linear-gradient(to right, var(--bg-main) 0%, rgba(236, 232, 225, 0) 100%);
   }
 
   /* ── SECTION SHARED ── */
@@ -350,7 +349,8 @@
   }
 
   /* ── PROJECTS ── */
-  .projects { background: #F4F2EB; } /* Chuyển nền xám nhạt ấm áp */
+  /* Làm trầm phần xen kẽ để không bị gắt */
+  .projects { background: #E2DED5; } 
 
   .projects-header {
     display: flex;
@@ -377,7 +377,7 @@
   .project-card:hover { 
     transform: translateY(-10px); 
     box-shadow: var(--shadow-glass);
-    border-color: rgba(255, 159, 28, 0.3);
+    border-color: rgba(242, 140, 0, 0.3);
   }
 
   .project-type {
@@ -456,12 +456,12 @@
     padding: 48px 32px;
     transition: background 0.3s;
   }
-  .skill-item:hover { background: rgba(255, 159, 28, 0.03); }
+  .skill-item:hover { background: rgba(242, 140, 0, 0.04); }
 
   .skill-icon {
     font-size: 36px;
     margin-bottom: 24px;
-    filter: drop-shadow(0 4px 8px rgba(255, 159, 28, 0.2));
+    filter: drop-shadow(0 4px 8px rgba(242, 140, 0, 0.2));
   }
 
   .skill-name {
@@ -479,7 +479,7 @@
   }
 
   /* ── WHY US ── */
-  .why { background: #F4F2EB; }
+  .why { background: #E2DED5; }
 
   .why-grid {
     display: grid;
@@ -499,14 +499,14 @@
   }
   .why-item:hover { 
     transform: translateY(-5px); 
-    border-color: rgba(255, 159, 28, 0.3);
+    border-color: rgba(242, 140, 0, 0.3);
     box-shadow: var(--shadow-glass);
   }
 
   .why-number {
     font-size: 100px;
     font-weight: 800;
-    color: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.03);
     line-height: 1;
     position: absolute;
     top: 20px;
@@ -577,12 +577,12 @@
     border-color: var(--primary);
     color: #FFFFFF;
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 159, 28, 0.2);
+    box-shadow: 0 10px 20px rgba(242, 140, 0, 0.2);
   }
 
   /* ── FOOTER ── */
   footer {
-    background: #1A1A1A; /* Giữ footer tối để chốt lại trang cho đẹp */
+    background: #1A1A1A; 
     padding: 40px 60px;
     display: flex;
     justify-content: space-between;
@@ -609,10 +609,6 @@
     color: var(--primary);
     font-style: italic;
     font-weight: 700;
-  }
-
-  footer .sponsor-logos img {
-    filter: brightness(1); /* Trả lại màu sáng cho logo trên nền đen footer */
   }
 
   footer .logo-divider {
@@ -925,10 +921,10 @@
   window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if(window.scrollY > 50) {
-      header.style.background = 'rgba(255, 255, 255, 0.98)';
+      header.style.background = 'rgba(245, 242, 236, 0.98)';
       header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.05)';
     } else {
-      header.style.background = 'rgba(253, 251, 247, 0.8)';
+      header.style.background = 'rgba(236, 232, 225, 0.85)';
       header.style.boxShadow = 'none';
     }
   });
