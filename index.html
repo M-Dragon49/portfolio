@@ -9,18 +9,23 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    /* Theme be/cát ấm (Warm Sand) giúp dịu mắt, bớt chói nhưng vẫn chuẩn vibe "Sun" */
     --bg-main: #ECE8E1;        
     --bg-surface: #F5F2EC;     
-    --primary: #F28C00; /* Màu cam mặt trời được làm đậm lại một chút để nổi bật trên nền be */       
-    --primary-dim: rgba(242, 140, 0, 0.12);
+    --primary: #F28C00;
+    --primary-dark: #D97D00;
+    --primary-gradient: linear-gradient(135deg, #FF9900 0%, #FF5500 100%);
+    --primary-dim: rgba(242, 140, 0, 0.15);
+    --primary-glow: rgba(255, 153, 0, 0.4);
     --text-main: #2C2A28;      
     --text-muted: #6B6862;     
-    --shadow-glass: 0 12px 40px rgba(0, 0, 0, 0.05);
+    --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 20px 50px rgba(242, 140, 0, 0.15);
     --border-light: rgba(0, 0, 0, 0.06);
+    --transition-bouncy: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     font-family: 'Be Vietnam Pro', sans-serif;
@@ -28,14 +33,52 @@
     color: var(--text-main);
     overflow-x: hidden;
     line-height: 1.6;
+    position: relative;
   }
 
-  h1, h2, h3, .serif {
-    font-family: 'Playfair Display', serif;
+  /* Chữ Gradient nổi bật */
+  .text-gradient {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
+
+  h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
 
   .tag, .nav-links a, .member-role, .project-type, .why-number, .btn-primary, .btn-outline, .section-label, .project-year, .skill-name, .why-title, .contact-chip {
     font-family: 'Be Vietnam Pro', sans-serif;
+  }
+
+  /* Hiệu ứng hoạt ảnh cơ bản */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(242, 140, 0, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(242, 140, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(242, 140, 0, 0); }
+  }
+
+  @keyframes orbMove {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  /* Lớp chung cho hiệu ứng cuộn */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: var(--transition-smooth);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   /* ── NAVBAR ── */
@@ -47,60 +90,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(236, 232, 225, 0.85); /* Khớp với màu nền dịu */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(236, 232, 225, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 100;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition-smooth);
+  }
+
+  header.scrolled {
+    background: rgba(245, 242, 236, 0.95);
     border-bottom: 1px solid var(--border-light);
-    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 12px 40px;
   }
 
-  .logo-area {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+  .logo-area { display: flex; align-items: center; gap: 16px; }
+  .logo { display: flex; align-items: center; text-decoration: none; transition: transform 0.3s; }
+  .logo:hover { transform: scale(1.05); }
+  .logo img { height: 44px; width: auto; object-fit: contain; }
 
-  .logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-  }
+  .sponsor-logos { display: flex; align-items: center; gap: 12px; }
+  .sponsor-logos img { height: 24px; width: auto; object-fit: contain; transition: opacity 0.3s; }
+  .sponsor-logos img:hover { opacity: 0.7; }
+  .logo-divider { width: 1px; height: 16px; background: rgba(0,0,0,0.15); }
 
-  .logo img {
-    height: 44px; /* Kích thước logo trên thanh điều hướng */
-    width: auto;
-    object-fit: contain;
-    border-radius: 50%; /* Bo tròn nếu logo có nền đen vuông, bạn có thể xóa dòng này nếu muốn giữ nguyên bản */
-  }
-
-  .sponsor-logos {
-    background: transparent;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .sponsor-logos img {
-    height: 24px;
-    width: auto;
-    object-fit: contain;
-    display: block;
-    /* Giữ nguyên màu gốc của logo */
-  }
-
-  .logo-divider {
-    width: 1px;
-    height: 16px;
-    background: rgba(0,0,0,0.15);
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-  }
-
+  .nav-links { display: flex; align-items: center; gap: 36px; }
   .nav-links a {
     text-decoration: none;
     color: var(--text-main);
@@ -108,22 +123,33 @@
     font-weight: 600; 
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: color 0.2s;
-    line-height: 1;
+    position: relative;
+    padding-bottom: 4px;
   }
-
-  .nav-links a:hover { color: var(--primary); }
+  
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0%; height: 2px;
+    background: var(--primary-gradient);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
 
   .nav-cta {
-    background: var(--primary);
+    background: var(--primary-gradient) !important;
     color: #FFFFFF !important;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 10px 24px;
+    border-radius: 30px !important;
     font-weight: 700 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(242, 140, 0, 0.25);
+    box-shadow: 0 4px 15px var(--primary-glow);
+    transition: var(--transition-bouncy) !important;
+  }
+  .nav-cta::after { display: none; }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px var(--primary-glow);
   }
 
   /* ── HERO SECTION ── */
@@ -133,6 +159,27 @@
     grid-template-columns: 1fr 1fr;
     position: relative;
     padding-top: 80px; 
+    overflow: hidden;
+  }
+
+  /* Cầu sáng trang trí (Orbs) */
+  .hero-orb-1 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,153,0,0.15) 0%, rgba(255,153,0,0) 70%);
+    top: -100px; left: -100px;
+    border-radius: 50%;
+    z-index: 1;
+    animation: orbMove 15s infinite alternate ease-in-out;
+  }
+  .hero-orb-2 {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,85,0,0.1) 0%, rgba(255,85,0,0) 70%);
+    bottom: -200px; right: 30%;
+    border-radius: 50%;
+    z-index: 1;
+    animation: orbMove 20s infinite alternate-reverse ease-in-out;
   }
 
   .hero-left {
@@ -145,479 +192,276 @@
   }
 
   .tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--primary);
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--primary);
     border: 1px solid var(--primary-dim);
-    background: rgba(242, 140, 0, 0.08);
-    padding: 8px 16px;
-    border-radius: 30px;
-    margin-bottom: 32px;
-    width: fit-content;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    padding: 8px 16px; border-radius: 30px;
+    margin-bottom: 32px; width: fit-content;
+    animation: float 4s ease-in-out infinite;
+  }
+  .tag::before {
+    content: ''; width: 8px; height: 8px;
+    background: var(--primary); border-radius: 50%;
+    animation: pulseGlow 2s infinite;
   }
 
   .hero-title {
     font-size: clamp(48px, 6vw, 84px);
-    line-height: 1.1;
-    color: var(--text-main);
+    line-height: 1.1; color: var(--text-main);
+    opacity: 0; animation: fadeUp 1s 0.2s forwards ease-out;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .hero-title em {
-    font-style: italic;
-    color: var(--primary);
-    font-weight: 600;
+    font-style: italic; font-weight: 800;
+    position: relative; display: inline-block;
+  }
+  
+  .hero-title em::after {
+    content: ''; position: absolute;
+    bottom: 8px; left: 0; width: 100%; height: 12px;
+    background: var(--primary-dim); z-index: -1;
+    transform: rotate(-2deg);
   }
 
   .hero-sub {
-    margin-top: 24px;
-    font-size: 16px;
-    color: var(--text-muted);
-    line-height: 1.8;
-    max-width: 420px;
-    font-weight: 400;
+    margin-top: 24px; font-size: 17px;
+    color: var(--text-muted); line-height: 1.8;
+    max-width: 460px; font-weight: 400;
+    opacity: 0; animation: fadeUp 1s 0.4s forwards ease-out;
   }
 
   .hero-cta {
-    margin-top: 48px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
+    margin-top: 48px; display: flex; gap: 20px;
+    align-items: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1s 0.6s forwards ease-out;
   }
 
   .btn-primary {
-    background: var(--primary);
-    color: #FFFFFF;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 18px 36px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(242, 140, 0, 0.2);
+    position: relative; overflow: hidden;
+    background: var(--primary-gradient);
+    color: #FFFFFF; font-weight: 700; font-size: 14px;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 18px 40px; border-radius: 40px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: var(--transition-bouncy);
+    box-shadow: 0 8px 20px var(--primary-glow);
   }
-  .btn-primary:hover { 
-    background: #D97D00; 
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(242, 140, 0, 0.3);
+  .btn-primary::before {
+    content: ''; position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
   }
+  .btn-primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px var(--primary-glow);
+  }
+  .btn-primary:hover::before { left: 100%; }
 
   .btn-outline {
-    color: var(--text-main);
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.3s;
+    color: var(--text-main); font-size: 14px; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none; display: flex; align-items: center; gap: 8px;
+    transition: all 0.3s; padding: 18px 24px; border-radius: 40px;
   }
-  .btn-outline::after { content: '→'; transition: transform 0.3s; }
-  .btn-outline:hover { color: var(--primary); }
-  .btn-outline:hover::after { transform: translateX(6px); }
+  .btn-outline::after {
+    content: '→'; transition: transform 0.3s;
+    background: var(--primary-dim); width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; color: var(--primary-dark);
+  }
+  .btn-outline:hover { background: rgba(0,0,0,0.03); }
+  .btn-outline:hover::after { transform: translateX(6px); background: var(--primary-gradient); color: #fff;}
 
   .hero-right {
     background: url('https://images.unsplash.com/photo-1552168324-d612d77725e3?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding: 60px;
+    position: relative; display: flex; align-items: flex-end; padding: 60px;
+    clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+    animation: fadeIn 1.5s ease-out;
   }
+  @keyframes fadeIn { from { opacity: 0; clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); } to { opacity: 1; clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); } }
   
   .hero-right::before {
-    content: '';
-    position: absolute;
-    inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: linear-gradient(to right, var(--bg-main) 0%, rgba(236, 232, 225, 0) 100%);
   }
 
   /* ── SECTION SHARED ── */
-  section { padding: 120px 0; border-bottom: 1px solid var(--border-light); }
-
-  .container {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
+  section { padding: 120px 0; border-bottom: 1px solid var(--border-light); position: relative; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; z-index: 2; position: relative; }
 
   .section-label {
-    font-size: 12px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--primary);
-    font-weight: 700;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--primary); font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
   }
   .section-label::before {
-    content: '';
-    width: 30px;
-    height: 1px;
-    background: var(--primary);
+    content: ''; width: 30px; height: 2px; background: var(--primary-gradient);
   }
 
-  .section-title {
-    font-size: clamp(36px, 4vw, 52px);
-    line-height: 1.2;
-    color: var(--text-main);
-  }
+  .section-title { font-size: clamp(36px, 4vw, 52px); line-height: 1.2; color: var(--text-main); }
 
   /* ── ABOUT & MEMBERS ── */
   .about { background: var(--bg-main); }
-
-  .about-intro {
-    max-width: 800px;
-    margin-bottom: 64px;
-    margin-top: 32px;
-  }
-
-  .about-intro p {
-    font-size: 18px;
-    line-height: 1.8;
-    color: var(--text-muted);
-    font-weight: 400;
-    margin-bottom: 16px;
-  }
+  .about-intro { max-width: 800px; margin-bottom: 64px; margin-top: 32px; }
+  .about-intro p { font-size: 18px; line-height: 1.8; color: var(--text-muted); font-weight: 400; margin-bottom: 16px; }
   .about-intro strong { color: var(--text-main); font-weight: 600; }
 
-  .members-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-  }
-
+  .members-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
   .member-card {
-    background: var(--bg-surface);
-    padding: 32px 24px;
-    border-radius: 8px;
-    border: 1px solid var(--border-light);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    background: var(--bg-surface); padding: 32px 24px;
+    border-radius: 16px; border: 1px solid var(--border-light);
+    transition: var(--transition-bouncy); position: relative; overflow: hidden;
   }
   
   .member-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 3px;
-    background: var(--primary);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--primary-gradient); transform: scaleX(0);
+    transform-origin: left; transition: transform 0.4s ease;
   }
 
   .member-card:hover { 
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-glass);
-    border-color: var(--primary-dim);
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+    border-color: transparent;
+    background: #FFFFFF;
   }
   .member-card:hover::before { transform: scaleX(1); }
 
   .member-role {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--primary);
-    font-weight: 700;
-    margin-bottom: 16px;
-    display: block;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--primary); font-weight: 700; margin-bottom: 16px; display: block;
   }
-
   .member-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--text-main);
-    line-height: 1.2;
-    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700;
+    color: var(--text-main); line-height: 1.2; margin-bottom: 8px;
   }
-
-  .member-skill {
-    font-size: 13px;
-    color: var(--text-muted);
-    font-weight: 400;
-    line-height: 1.6;
-  }
+  .member-skill { font-size: 13px; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
 
   /* ── PROJECTS ── */
-  /* Làm trầm phần xen kẽ để không bị gắt */
   .projects { background: #E2DED5; } 
-
-  .projects-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 64px;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-  }
+  .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; flex-wrap: wrap; gap: 24px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 
   .project-card {
-    background: var(--bg-surface);
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border-light);
-    transition: all 0.4s ease;
+    background: var(--bg-surface); border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border-light); transition: var(--transition-bouncy);
   }
   .project-card:hover { 
-    transform: translateY(-10px); 
-    box-shadow: var(--shadow-glass);
+    transform: translateY(-12px) scale(1.02); 
+    box-shadow: var(--shadow-hover);
     border-color: rgba(242, 140, 0, 0.3);
   }
 
   .project-type {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: var(--primary);
-    color: #FFFFFF;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: 6px 14px;
-    border-radius: 30px;
-    z-index: 3;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: absolute; top: 20px; left: 20px;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+    color: var(--primary-dark); font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 800; padding: 8px 16px;
+    border-radius: 30px; z-index: 3; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
-  .project-body { padding: 28px; }
-
-  .project-name {
-    font-size: 22px;
-    color: var(--text-main);
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-
-  .project-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    font-weight: 400;
-  }
+  .project-body { padding: 32px; background: #FFFFFF; }
+  .project-name { font-size: 22px; color: var(--text-main); margin-bottom: 12px; font-weight: 700; transition: color 0.3s; }
+  .project-card:hover .project-name { color: var(--primary-dark); }
+  .project-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; font-weight: 400; }
 
   .project-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 24px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border-light);
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border-light);
   }
-
-  .project-year {
-    font-size: 12px;
-    color: var(--primary);
-    letter-spacing: 0.1em;
-    font-weight: 700;
-  }
-
-  .project-award {
-    font-size: 12px;
-    color: var(--text-main);
-    background: rgba(0, 0, 0, 0.05);
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: 500;
-  }
+  .project-year { font-size: 12px; color: var(--primary); letter-spacing: 0.1em; font-weight: 700; }
+  .project-award { font-size: 12px; color: var(--primary-dark); background: var(--primary-dim); padding: 6px 12px; border-radius: 20px; font-weight: 600; }
 
   /* ── SKILLS ── */
   .skills-section { background: var(--bg-main); }
-
   .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    margin-top: 64px;
-    background: var(--border-light);
-    border: 1px solid var(--border-light);
-    border-radius: 12px;
-    overflow: hidden;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 64px;
+    background: var(--border-light); border: 1px solid var(--border-light);
+    border-radius: 24px; overflow: hidden;
   }
 
   .skill-item {
-    background: var(--bg-surface);
-    padding: 48px 32px;
-    transition: background 0.3s;
+    background: var(--bg-surface); padding: 48px 32px; transition: var(--transition-smooth);
+    position: relative; z-index: 1;
   }
-  .skill-item:hover { background: rgba(242, 140, 0, 0.04); }
+  .skill-item::before {
+    content: ''; position: absolute; inset: 0; opacity: 0;
+    background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    transition: opacity 0.5s; z-index: -1;
+  }
+  .skill-item:hover { transform: scale(1.05); z-index: 2; box-shadow: var(--shadow-hover); border-radius: 16px; }
+  .skill-item:hover::before { opacity: 1; }
 
-  .skill-icon {
-    font-size: 36px;
-    margin-bottom: 24px;
-    filter: drop-shadow(0 4px 8px rgba(242, 140, 0, 0.2));
-  }
-
-  .skill-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 12px;
-  }
-
-  .skill-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.6;
-    font-weight: 400;
-  }
+  .skill-icon { font-size: 42px; margin-bottom: 24px; filter: drop-shadow(0 4px 8px var(--primary-dim)); transition: transform 0.3s; display: inline-block;}
+  .skill-item:hover .skill-icon { transform: translateY(-5px) scale(1.1); animation: float 3s ease-in-out infinite; }
+  .skill-name { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; }
+  .skill-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; font-weight: 400; }
 
   /* ── WHY US ── */
   .why { background: #E2DED5; }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-top: 64px;
-  }
-
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 64px; }
   .why-item {
-    background: var(--bg-surface);
-    padding: 56px 48px;
-    border-radius: 12px;
-    border: 1px solid var(--border-light);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    background: var(--bg-surface); padding: 56px 48px; border-radius: 20px;
+    border: 1px solid var(--border-light); position: relative; overflow: hidden;
+    transition: var(--transition-bouncy);
   }
   .why-item:hover { 
-    transform: translateY(-5px); 
+    transform: translateY(-8px); 
     border-color: rgba(242, 140, 0, 0.3);
-    box-shadow: var(--shadow-glass);
+    box-shadow: var(--shadow-hover);
+    background: #FFFFFF;
   }
 
   .why-number {
-    font-size: 100px;
-    font-weight: 800;
-    color: rgba(0, 0, 0, 0.03);
-    line-height: 1;
-    position: absolute;
-    top: 20px;
-    right: 30px;
+    font-size: 120px; font-weight: 800; color: rgba(0, 0, 0, 0.03);
+    line-height: 1; position: absolute; top: 10px; right: 20px;
+    transition: all 0.5s;
   }
-
-  .why-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 16px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .why-desc {
-    font-size: 15px;
-    color: var(--text-muted);
-    line-height: 1.8;
-    font-weight: 400;
-    position: relative;
-    z-index: 2;
-  }
+  .why-item:hover .why-number { color: var(--primary-dim); transform: translateX(-10px) scale(1.1); }
+  .why-title { font-size: 22px; font-weight: 700; color: var(--primary-dark); margin-bottom: 16px; position: relative; z-index: 2; }
+  .why-desc { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-weight: 400; position: relative; z-index: 2; }
 
   /* ── CONTACT ── */
-  .contact-section {
-    background: var(--bg-main);
-    text-align: center;
-    padding: 140px 0;
-  }
-
+  .contact-section { background: var(--bg-main); text-align: center; padding: 140px 0; overflow: hidden;}
   .contact-section .section-label { justify-content: center; }
   .contact-section .section-label::before { display: none; }
+  .contact-section p { color: var(--text-muted); font-size: 18px; font-weight: 400; margin: 24px auto 48px; max-width: 540px; line-height: 1.8; }
 
-  .contact-section p {
-    color: var(--text-muted);
-    font-size: 18px;
-    font-weight: 400;
-    margin: 24px auto 48px;
-    max-width: 540px;
-    line-height: 1.8;
-  }
-
-  .contact-links {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
+  .contact-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
   .contact-chip {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--bg-surface);
-    border: 1px solid var(--border-light);
-    padding: 18px 36px;
-    border-radius: 40px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-main);
-    text-decoration: none;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    display: flex; align-items: center; gap: 12px; background: #FFFFFF;
+    border: 1px solid var(--border-light); padding: 18px 36px; border-radius: 40px;
+    font-size: 15px; font-weight: 600; color: var(--text-main); text-decoration: none;
+    transition: var(--transition-bouncy); box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    position: relative; overflow: hidden; z-index: 1;
   }
-  .contact-chip:hover {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #FFFFFF;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(242, 140, 0, 0.2);
+  .contact-chip::before {
+    content: ''; position: absolute; inset: 0; background: var(--primary-gradient);
+    z-index: -1; transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s ease;
   }
+  .contact-chip:hover { color: #FFFFFF; transform: translateY(-5px); box-shadow: 0 15px 30px var(--primary-glow); border-color: transparent; }
+  .contact-chip:hover::before { transform: scaleY(1); }
 
   /* ── FOOTER ── */
   footer {
-    background: #1A1A1A; 
-    padding: 40px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
+    background: #111111; padding: 60px; display: flex;
+    justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
   }
+  footer span { font-size: 13px; color: #888888; }
+  footer .footer-logo-area { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer .footer-logo { display: flex; align-items: center; transition: opacity 0.3s; }
+  footer .footer-logo:hover { opacity: 0.8; }
+  footer .footer-logo img { height: 40px; width: auto; object-fit: contain; }
 
-  footer span {
-    font-size: 13px;
-    color: #A1A1A6;
-  }
-
-  footer .footer-logo-area {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  footer .footer-logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  footer .footer-logo img {
-    height: 36px; /* Kích thước logo ở footer */
-    width: auto;
-    object-fit: contain;
-    border-radius: 50%; /* Bo tròn nếu cần thiết */
-  }
-
-  /* ── RESPONSIVE TWEAKS ── */
+  /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {
     .members-grid { grid-template-columns: repeat(2, 1fr); }
     .projects-grid { grid-template-columns: repeat(2, 1fr); } 
@@ -628,23 +472,25 @@
   @media (max-width: 768px) {
     header { padding: 16px 24px; }
     .nav-links { display: none; }
-    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 100px; }
-    .hero-left { padding: 60px 24px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 120px; }
+    .hero-left { padding: 40px 24px; text-align: center; align-items: center; }
     .hero-right { display: none; } 
-    .hero-title { font-size: 48px; }
+    .hero-sub { text-align: center; }
+    .hero-cta { justify-content: center; }
+    .hero-title { font-size: 42px; }
     .projects-grid { grid-template-columns: 1fr; } 
     .skills-grid { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
     .container { padding: 0 24px; }
     section { padding: 80px 0; }
     .why-item { padding: 40px 32px; }
-    footer { flex-direction: column; text-align: center; justify-content: center; }
+    footer { flex-direction: column; text-align: center; justify-content: center; padding: 40px 24px; }
   }
 </style>
 </head>
 <body>
 
-<header>
+<header id="main-header">
   <div class="logo-area">
     <a href="#top" class="logo">
       <img src="Sun Production.png" alt="Sun Production Logo">
@@ -666,9 +512,12 @@
 </header>
 
 <section class="hero" id="top">
+  <div class="hero-orb-1"></div>
+  <div class="hero-orb-2"></div>
+  
   <div class="hero-left">
     <span class="tag">Production House · HUTECH 2026</span>
-    <h1 class="hero-title">Nội dung<br><em>chạm đến</em><br>cảm xúc.</h1>
+    <h1 class="hero-title">Nội dung<br><em class="text-gradient">chạm đến</em><br>cảm xúc.</h1>
     <p class="hero-sub">Chúng tôi là đội ngũ sinh viên đam mê sản xuất hình ảnh và video. Biến ý tưởng của thương hiệu thành những thước phim chỉn chu, rực rỡ và sẵn sàng để viral.</p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">Xem sản phẩm</a>
@@ -681,52 +530,52 @@
 
 <section class="about" id="about">
   <div class="container">
-    <div class="section-label">Về chúng tôi</div>
-    <h2 class="section-title">Nhóm sinh viên năm 2<br>chuyên ngành Truyền thông đa phương tiện</h2>
+    <div class="section-label reveal">Về chúng tôi</div>
+    <h2 class="section-title reveal">Nhóm sinh viên năm 2<br>chuyên ngành Truyền thông đa phương tiện</h2>
 
-    <div class="about-intro">
+    <div class="about-intro reveal">
       <p>Chúng tôi đang theo học học phần <strong>"Quản trị dự án Truyền thông"</strong> tại trường Đại học Công nghệ TP.HCM (HUTECH), với yêu cầu thực hành trực tiếp cùng doanh nghiệp thực tế.</p>
       <p>Nhóm được thành lập với một mục tiêu rõ ràng: tạo ra những sản phẩm truyền thông chân thực, mang năng lượng tích cực và thực sự có ích cho thương hiệu đối tác – không chỉ để lấy điểm.</p>
       <p>Chúng tôi làm việc theo quy trình bài bản: nghiên cứu thương hiệu → phác thảo concept → trình duyệt → sản xuất → giao sản phẩm toàn quyền cho đối tác.</p>
     </div>
 
     <div class="members-grid">
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Trưởng nhóm · Producer</div>
         <div class="member-name">Khắc Duy</div>
         <div class="member-skill">Điều phối sản xuất · Định hướng sáng tạo</div>
       </div>
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Concept · Scriptwriter</div>
         <div class="member-name">Kim Toàn</div>
         <div class="member-skill">Viết kịch bản · Phát triển ý tưởng</div>
       </div>
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Art Direction · Visual</div>
         <div class="member-name">Đỗ Quyên</div>
         <div class="member-skill">Thiết kế hình ảnh · Storyboard</div>
       </div>
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Social Media · PR</div>
         <div class="member-name">Gia Hào</div>
         <div class="member-skill">Phân tích insight · Chiến lược đăng tải</div>
       </div>
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Camera Operator · Color Grading</div>
         <div class="member-name">Quốc Khánh</div>
         <div class="member-skill">Camera · Xử lý màu sắc hậu kỳ</div>
       </div>
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Editor · Motion Graphics</div>
         <div class="member-name">Minh Long</div>
         <div class="member-skill">Dựng phim · After Effects · Motion</div>
       </div>
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Director of Photography</div>
         <div class="member-name">Thanh Nhật</div>
         <div class="member-skill">Director of Photography · Ánh sáng</div>
       </div>
-      <div class="member-card">
+      <div class="member-card reveal">
         <div class="member-role">Research · Planning</div>
         <div class="member-name">Pha Lê</div>
         <div class="member-skill">Nghiên cứu thị trường · Lên kế hoạch</div>
@@ -739,22 +588,21 @@
   <div class="container">
     <div class="projects-header">
       <div>
-        <div class="section-label">Dự án nổi bật</div>
-        <h2 class="section-title">Những gì chúng tôi<br>đã thực hiện</h2>
+        <div class="section-label reveal">Dự án nổi bật</div>
+        <h2 class="section-title reveal">Những gì chúng tôi<br>đã thực hiện</h2>
       </div>
     </div>
 
     <div class="projects-grid">
-      
-      <div class="project-card">
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
+      <div class="project-card reveal">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px 20px 0 0;">
           <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
                   src="https://www.youtube.com/embed/XpmF3M0KRvc?rel=0" 
                   title="YouTube video player" frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
           </iframe>
-          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">TVC · Electronics</div>
+          <div class="project-type" style="pointer-events: none;">TVC · Electronics</div>
         </div>
         <div class="project-body">
           <h3 class="project-name">Tromsmart T8 - Khi Tĩnh Lặng Cất Tiếng</h3>
@@ -766,15 +614,15 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
+      <div class="project-card reveal">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px 20px 0 0;">
           <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
                   src="https://www.youtube.com/embed/51uUjP160Zc?rel=0" 
                   title="YouTube video player" frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
           </iframe>
-          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">TVC · F&B</div>
+          <div class="project-type" style="pointer-events: none;">TVC · F&B</div>
         </div>
         <div class="project-body">
           <h3 class="project-name">Nước Mắm Nam Ngư – Nghi Thức Vị Giác</h3>
@@ -786,15 +634,15 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px 12px 0 0;">
+      <div class="project-card reveal">
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px 20px 0 0;">
           <iframe loading="lazy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
                   src="https://www.youtube.com/embed/SKQRnz-xK8c?rel=0" 
                   title="YouTube video player" frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                   referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
           </iframe>
-          <div class="project-type" style="position: absolute; top: 20px; left: 20px; z-index: 10; pointer-events: none;">Short Film</div>
+          <div class="project-type" style="pointer-events: none;">Short Film</div>
         </div>
         <div class="project-body">
           <h3 class="project-name">Sự Thật - Phim Ngắn</h3>
@@ -805,53 +653,52 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <section class="skills-section" id="skills">
   <div class="container">
-    <div class="section-label">Năng lực</div>
-    <h2 class="section-title">Chúng tôi làm được gì</h2>
+    <div class="section-label reveal">Năng lực</div>
+    <h2 class="section-title reveal">Chúng tôi làm được gì</h2>
 
     <div class="skills-grid">
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">🎬</div>
         <div class="skill-name">Sản xuất TVC</div>
         <div class="skill-desc">Lên kịch bản, storyboard, quay dựng hoàn chỉnh từ 15 đến 90 giây</div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">✍️</div>
         <div class="skill-name">Concept & Copywriting</div>
         <div class="skill-desc">Xây dựng thông điệp thương hiệu, tagline và nội dung caption</div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">📱</div>
         <div class="skill-name">Social Content</div>
         <div class="skill-desc">Reels, TikTok, Shorts tối ưu theo xu hướng và thuật toán hiện tại</div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">🎨</div>
         <div class="skill-name">Art Direction</div>
         <div class="skill-desc">Thiết kế hình ảnh, màu sắc, phong cách visual nhất quán cho thương hiệu</div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">📊</div>
         <div class="skill-name">Research & Insight</div>
         <div class="skill-desc">Phân tích khách hàng mục tiêu, competitor và xu hướng ngành</div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">🎵</div>
         <div class="skill-name">Hậu kỳ</div>
         <div class="skill-desc">Dựng phim, color grading, thiết kế âm thanh và motion graphics cơ bản</div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">📍</div>
         <div class="skill-name">Location Scouting</div>
         <div class="skill-desc">Lựa chọn bối cảnh quay phù hợp với tone thương hiệu và ngân sách</div>
       </div>
-      <div class="skill-item">
+      <div class="skill-item reveal">
         <div class="skill-icon">🤝</div>
         <div class="skill-name">Brand Partnership</div>
         <div class="skill-desc">Làm việc chuyên nghiệp, lắng nghe và điều chỉnh theo định hướng đối tác</div>
@@ -862,26 +709,26 @@
 
 <section class="why" id="why">
   <div class="container">
-    <div class="section-label">Tại sao chọn chúng tôi</div>
-    <h2 class="section-title">Lợi ích khi hợp tác<br>cùng nhóm</h2>
+    <div class="section-label reveal">Tại sao chọn chúng tôi</div>
+    <h2 class="section-title reveal">Lợi ích khi hợp tác<br>cùng nhóm</h2>
 
     <div class="why-grid">
-      <div class="why-item">
+      <div class="why-item reveal">
         <div class="why-number">01</div>
         <div class="why-title">Tối ưu chi phí sản xuất</div>
         <div class="why-desc">Tối ưu chi phí là làm ra sản phẩm tốt hơn với mức giá rẻ hơn nhờ quy trình sản xuất thông minh và tiết kiệm.</div>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal">
         <div class="why-number">02</div>
         <div class="why-title">Toàn quyền sử dụng sản phẩm</div>
         <div class="why-desc">Sau khi nghiệm thu, thương hiệu sở hữu toàn bộ file video – được phép đăng tải, chia sẻ và khai thác trên mọi nền tảng mà không giới hạn bản quyền.</div>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal">
         <div class="why-number">03</div>
         <div class="why-title">Chạm đúng đối tượng Gen Z</div>
         <div class="why-desc">Nhóm là người trẻ, hiểu rõ xu hướng tiêu dùng nội dung của thế hệ mình. Sản phẩm mang nguồn năng lượng tươi mới, sẵn sàng để viral.</div>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal">
         <div class="why-number">04</div>
         <div class="why-title">Quy trình minh bạch, trách nhiệm</div>
         <div class="why-desc">Có giảng viên hướng dẫn giám sát chất lượng. Thương hiệu được tham gia góp ý ở mọi bước – từ concept đến sản phẩm cuối cùng.</div>
@@ -891,19 +738,20 @@
 </section>
 
 <section class="contact-section" id="contact">
+  <div class="hero-orb-1" style="top: auto; bottom: -100px; left: 20%;"></div>
   <div class="container">
-    <div class="section-label">Liên hệ</div>
-    <h2 class="section-title">Sẵn sàng hợp tác?</h2>
-    <p>Nhóm luôn mở cửa để lắng nghe. Dù chỉ là một buổi trao đổi ngắn, chúng tôi tin đó là khởi đầu của một sản phẩm truyền thông ý nghĩa và chất lượng.</p>
-    <div class="contact-links">
+    <div class="section-label reveal">Liên hệ</div>
+    <h2 class="section-title reveal">Sẵn sàng hợp tác?</h2>
+    <p class="reveal">Nhóm luôn mở cửa để lắng nghe. Dù chỉ là một buổi trao đổi ngắn, chúng tôi tin đó là khởi đầu của một sản phẩm truyền thông ý nghĩa và chất lượng.</p>
+    <div class="contact-links reveal">
       <a href="mailto:khduy1709@gmail.com" class="contact-chip">
-        ✉️ khduy1709@gmail.com
+        <span style="z-index:2; display:flex; align-items:center; gap:8px;">✉️ khduy1709@gmail.com</span>
       </a>
-      <a href="https://www.facebook.com/profile.php?id=61560353643187" target="_blank" rel="noopener noreferrer" class="contact-chip">
-        📘 Facebook
+      <a href="LINK_FACEBOOK_CUA_BAN_O_DAY" target="_blank" rel="noopener noreferrer" class="contact-chip">
+        <span style="z-index:2; display:flex; align-items:center; gap:8px;">📘 Facebook</span>
       </a>
       <a href="tel:+84907557569" class="contact-chip">
-        📞 0907 557 569
+        <span style="z-index:2; display:flex; align-items:center; gap:8px;">📞 0907 557 569</span>
       </a>
     </div>
   </div>
@@ -920,34 +768,36 @@
 </footer>
 
 <script>
-  // Hiệu ứng cuộn mượt cho thanh điều hướng
+  // Navbar Glassmorphism Effect on Scroll
+  const header = document.getElementById('main-header');
   window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
     if(window.scrollY > 50) {
-      header.style.background = 'rgba(245, 242, 236, 0.98)';
-      header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.05)';
+      header.classList.add('scrolled');
     } else {
-      header.style.background = 'rgba(236, 232, 225, 0.85)';
-      header.style.boxShadow = 'none';
+      header.classList.remove('scrolled');
     }
   });
 
-  // Hiệu ứng xuất hiện khi cuộn tới
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
+  // Staggered Scroll Reveal Animation
+  const revealElements = document.querySelectorAll('.reveal');
+  
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        // Tạo độ trễ (delay) nhỏ để các phần tử hiện ra lần lượt (staggered effect)
+        setTimeout(() => {
+          entry.target.classList.add('active');
+        }, index * 100); 
+        // Sau khi hiện thì ngừng theo dõi để không bị chạy lại hiệu ứng
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.project-card, .why-item, .skill-item, .member-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.7s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.7s cubic-bezier(0.165, 0.84, 0.44, 1)';
-    observer.observe(el);
+  }, { 
+    threshold: 0.1, 
+    rootMargin: "0px 0px -50px 0px" // Kích hoạt sớm hơn một chút khi cuộn
   });
+
+  revealElements.forEach(el => revealObserver.observe(el));
 </script>
 </body>
 </html>
