@@ -62,14 +62,16 @@
   }
 
   .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--primary);
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: 1px;
-    font-style: italic;
-    line-height: 1;
+  }
+
+  .logo img {
+    height: 44px; /* Kích thước logo trên thanh điều hướng */
+    width: auto;
+    object-fit: contain;
+    border-radius: 50%; /* Bo tròn nếu logo có nền đen vuông, bạn có thể xóa dòng này nếu muốn giữ nguyên bản */
   }
 
   .sponsor-logos {
@@ -604,14 +606,16 @@
   }
 
   footer .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: var(--primary);
-    font-style: italic;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
   }
-
-  /* Đã xóa .sponsor-logos ở footer */
+  
+  footer .footer-logo img {
+    height: 36px; /* Kích thước logo ở footer */
+    width: auto;
+    object-fit: contain;
+    border-radius: 50%; /* Bo tròn nếu cần thiết */
+  }
 
   /* ── RESPONSIVE TWEAKS ── */
   @media (max-width: 1024px) {
@@ -642,7 +646,9 @@
 
 <header>
   <div class="logo-area">
-    <a href="#top" class="logo">Sun Production.</a>
+    <a href="#top" class="logo">
+      <img src="Sun Production.jpg" alt="Sun Production Logo">
+    </a>
     <div class="logo-divider" style="margin: 0 8px;"></div>
     <div class="sponsor-logos">
       <img src="Logo HUTECH - RGB.png" alt="HUTECH Logo">
@@ -902,7 +908,9 @@
 
 <footer>
   <div class="footer-logo-area">
-    <span class="footer-logo">Sun Production.</span>
+    <span class="footer-logo">
+      <img src="Sun Production.jpg" alt="Sun Production Logo">
+    </span>
   </div>
   <span>Dự án học phần Quản trị dự án Truyền thông · HUTECH 2025–2026</span>
   <span>TP. Hồ Chí Minh</span>
