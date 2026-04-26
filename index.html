@@ -36,12 +36,14 @@
     position: relative;
   }
 
-  /* Chữ Gradient nổi bật */
   .text-gradient {
     background: var(--primary-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    padding-bottom: 0.15em;
+    margin-bottom: -0.15em;
+    display: inline-block;
   }
 
   h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
@@ -50,7 +52,6 @@
     font-family: 'Be Vietnam Pro', sans-serif;
   }
 
-  /* Hiệu ứng hoạt ảnh cơ bản */
   @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
@@ -70,7 +71,6 @@
     100% { transform: translate(0, 0) scale(1); }
   }
 
-  /* Lớp chung cho hiệu ứng cuộn */
   .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -81,7 +81,6 @@
     transform: translateY(0);
   }
 
-  /* ── NAVBAR ── */
   header {
     position: fixed;
     top: 0;
@@ -140,11 +139,15 @@
   .nav-cta {
     background: var(--primary-gradient) !important;
     color: #FFFFFF !important;
-    padding: 10px 24px;
+    padding: 12px 28px !important;
     border-radius: 30px !important;
     font-weight: 700 !important;
     box-shadow: 0 4px 15px var(--primary-glow);
     transition: var(--transition-bouncy) !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    line-height: normal !important;
   }
   .nav-cta::after { display: none; }
   .nav-cta:hover {
@@ -152,7 +155,6 @@
     box-shadow: 0 8px 25px var(--primary-glow);
   }
 
-  /* ── HERO SECTION ── */
   .hero {
     min-height: 100vh;
     display: grid;
@@ -162,7 +164,6 @@
     overflow: hidden;
   }
 
-  /* Cầu sáng trang trí (Orbs) */
   .hero-orb-1 {
     position: absolute;
     width: 400px; height: 400px;
@@ -220,12 +221,12 @@
 
   .hero-title em {
     font-style: italic; font-weight: 800;
-    position: relative; display: inline-block;
+    position: relative; 
   }
   
   .hero-title em::after {
     content: ''; position: absolute;
-    bottom: 8px; left: 0; width: 100%; height: 12px;
+    bottom: 12px; left: 0; width: 100%; height: 12px;
     background: var(--primary-dim); z-index: -1;
     transform: rotate(-2deg);
   }
@@ -293,7 +294,6 @@
     background: linear-gradient(to right, var(--bg-main) 0%, rgba(236, 232, 225, 0) 100%);
   }
 
-  /* ── SECTION SHARED ── */
   section { padding: 120px 0; border-bottom: 1px solid var(--border-light); position: relative; }
   .container { max-width: 1240px; margin: 0 auto; padding: 0 40px; z-index: 2; position: relative; }
 
@@ -308,7 +308,6 @@
 
   .section-title { font-size: clamp(36px, 4vw, 52px); line-height: 1.2; color: var(--text-main); }
 
-  /* ── ABOUT & MEMBERS ── */
   .about { background: var(--bg-main); }
   .about-intro { max-width: 800px; margin-bottom: 64px; margin-top: 32px; }
   .about-intro p { font-size: 18px; line-height: 1.8; color: var(--text-muted); font-weight: 400; margin-bottom: 16px; }
@@ -345,14 +344,19 @@
   }
   .member-skill { font-size: 13px; color: var(--text-muted); font-weight: 400; line-height: 1.6; }
 
-  /* ── PROJECTS ── */
   .projects { background: #E2DED5; } 
   .projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 64px; flex-wrap: wrap; gap: 24px; }
   .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 
   .project-card {
-    background: var(--bg-surface); border-radius: 20px; overflow: hidden;
-    border: 1px solid var(--border-light); transition: var(--transition-bouncy);
+    background: #FFFFFF;
+    border-radius: 20px; 
+    overflow: hidden;
+    border: 1px solid var(--border-light); 
+    transition: var(--transition-bouncy);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   .project-card:hover { 
     transform: translateY(-12px) scale(1.02); 
@@ -368,19 +372,27 @@
     border-radius: 30px; z-index: 3; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
-  .project-body { padding: 32px; background: #FFFFFF; }
+  .project-body { 
+    padding: 32px; 
+    display: flex; 
+    flex-direction: column; 
+    flex-grow: 1;
+  }
+  
   .project-name { font-size: 22px; color: var(--text-main); margin-bottom: 12px; font-weight: 700; transition: color 0.3s; }
   .project-card:hover .project-name { color: var(--primary-dark); }
   .project-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; font-weight: 400; }
 
   .project-meta {
     display: flex; justify-content: space-between; align-items: center;
-    margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border-light);
+    margin-top: auto;
+    padding-top: 16px; 
+    border-top: 1px dashed var(--border-light);
   }
+  
   .project-year { font-size: 12px; color: var(--primary); letter-spacing: 0.1em; font-weight: 700; }
   .project-award { font-size: 12px; color: var(--primary-dark); background: var(--primary-dim); padding: 6px 12px; border-radius: 20px; font-weight: 600; }
 
-  /* ── SKILLS ── */
   .skills-section { background: var(--bg-main); }
   .skills-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 64px;
@@ -405,7 +417,6 @@
   .skill-name { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; }
   .skill-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; font-weight: 400; }
 
-  /* ── WHY US ── */
   .why { background: #E2DED5; }
   .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 64px; }
   .why-item {
@@ -429,7 +440,6 @@
   .why-title { font-size: 22px; font-weight: 700; color: var(--primary-dark); margin-bottom: 16px; position: relative; z-index: 2; }
   .why-desc { font-size: 15px; color: var(--text-muted); line-height: 1.8; font-weight: 400; position: relative; z-index: 2; }
 
-  /* ── CONTACT ── */
   .contact-section { background: var(--bg-main); text-align: center; padding: 140px 0; overflow: hidden;}
   .contact-section .section-label { justify-content: center; }
   .contact-section .section-label::before { display: none; }
@@ -450,7 +460,6 @@
   .contact-chip:hover { color: #FFFFFF; transform: translateY(-5px); box-shadow: 0 15px 30px var(--primary-glow); border-color: transparent; }
   .contact-chip:hover::before { transform: scaleY(1); }
 
-  /* ── FOOTER ── */
   footer {
     background: #111111; padding: 60px; display: flex;
     justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
@@ -461,7 +470,6 @@
   footer .footer-logo:hover { opacity: 0.8; }
   footer .footer-logo img { height: 40px; width: auto; object-fit: contain; }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {
     .members-grid { grid-template-columns: repeat(2, 1fr); }
     .projects-grid { grid-template-columns: repeat(2, 1fr); } 
@@ -747,7 +755,7 @@
       <a href="mailto:khduy1709@gmail.com" class="contact-chip">
         <span style="z-index:2; display:flex; align-items:center; gap:8px;">✉️ khduy1709@gmail.com</span>
       </a>
-      <a href="LINK_FACEBOOK_CUA_BAN_O_DAY" target="_blank" rel="noopener noreferrer" class="contact-chip">
+      <a href="https://www.facebook.com/profile.php?id=61560353643187" target="_blank" rel="noopener noreferrer" class="contact-chip">
         <span style="z-index:2; display:flex; align-items:center; gap:8px;">📘 Facebook</span>
       </a>
       <a href="tel:+84907557569" class="contact-chip">
@@ -768,7 +776,6 @@
 </footer>
 
 <script>
-  // Navbar Glassmorphism Effect on Scroll
   const header = document.getElementById('main-header');
   window.addEventListener('scroll', () => {
     if(window.scrollY > 50) {
@@ -778,23 +785,20 @@
     }
   });
 
-  // Staggered Scroll Reveal Animation
   const revealElements = document.querySelectorAll('.reveal');
   
   const revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        // Tạo độ trễ (delay) nhỏ để các phần tử hiện ra lần lượt (staggered effect)
         setTimeout(() => {
           entry.target.classList.add('active');
         }, index * 100); 
-        // Sau khi hiện thì ngừng theo dõi để không bị chạy lại hiệu ứng
         observer.unobserve(entry.target);
       }
     });
   }, { 
     threshold: 0.1, 
-    rootMargin: "0px 0px -50px 0px" // Kích hoạt sớm hơn một chút khi cuộn
+    rootMargin: "0px 0px -50px 0px"
   });
 
   revealElements.forEach(el => revealObserver.observe(el));
